@@ -3,7 +3,12 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler
-import ta
+from typing import List, Dict, Tuple
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.preprocessing import StandardScaler
+
 
 class StatisticalArbitrageStrategy:
     def __init__(self, lookback_period=20, n_pairs=10):
