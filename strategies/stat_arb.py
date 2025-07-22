@@ -80,3 +80,4 @@ class StatisticalArbitrageStrategy:
             return {"action": "sell", "confidence": ensemble_prob[0]}
         else:
             return {"action": "hold", "confidence": max(ensemble_prob)}
+    

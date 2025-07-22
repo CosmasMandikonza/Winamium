@@ -1,7 +1,7 @@
-# dashboard.py
-# For hackathon, create a simple Flask/FastAPI web interface
+# dashboard.py - UPDATED VERSION
 from flask import Flask, render_template, jsonify
 import json
+import os
 
 app = Flask(__name__)
 
@@ -11,19 +11,20 @@ def dashboard():
 
 @app.route('/api/performance')
 def get_performance():
-    # Return real-time performance data
-    return jsonify({
-        "total_return": 15.3,
-        "sharpe_ratio": 2.1,
-        "max_drawdown": -8.5,
-        "winning_trades": 67,
-        "total_trades": 89
-    })
+    """Return real performance data"""
+    try:
+        with open('performance.json', 'r') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except:
+        # Default data if file doesn't exist
+        return jsonify({
+            "total_return": 0,
+            "sharpe_ratio": 0,
+            "max_drawdown": 0,
+            "winning_trades": 0,
+            "total_trades": 0
+        })
 
-@app.route('/api/positions')
-def get_positions():
-    # Return current positions
-    return jsonify([
-        {"pair": "ETH/BTC", "size": 1000, "pnl": 45.2},
-        {"pair": "LINK/USDC", "size": 500, "pnl": -12.3}
-    ])
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
