@@ -1,0 +1,56 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Autonomous Apes Trading Bot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            background: #0a0a0a; 
+            color: #00ff00; 
+            font-family: 'Courier New', monospace;
+        }
+        .metric-card {
+            background: #1a1a1a;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        .profit { color: #00ff00; }
+        .loss { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>🦍 Autonomous Apes AI Trading Agent</h1>
+    
+    <div class="metrics">
+        <div class="metric-card">
+            <h3>Total Return</h3>
+            <div id="total-return" class="profit">+15.3%</div>
+        </div>
+        <div class="metric-card">
+            <h3>Sharpe Ratio</h3>
+            <div id="sharpe-ratio">2.1</div>
+        </div>
+    </div>
+    
+    <canvas id="performanceChart"></canvas>
+    
+    <script>
+        // Real-time updates
+        setInterval(updateMetrics, 1000);
+        
+        function updateMetrics() {
+            fetch('/api/performance')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('total-return').innerText = 
+                        (data.total_return > 0 ? '+' : '') + data.total_return + '%';
+                    document.getElementById('sharpe-ratio').innerText = data.sharpe_ratio;
+                });
+        }
+    </script>
+</body>
+</html>
